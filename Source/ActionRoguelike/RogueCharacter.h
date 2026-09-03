@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+struct FInputActionValue;
+class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
 
@@ -19,14 +21,23 @@ public:
 	ARogueCharacter();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	// 创建输入映射，用于BindAction
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	TObjectPtr<UInputAction> Input_Move;
+	
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	TObjectPtr<UInputAction> Input_Look;
 	
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
 	
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	TObjectPtr<UCameraComponent> CameraComponent;
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	
+	void Move(const FInputActionValue& InValue);
 
 public:
 	// Called every frame

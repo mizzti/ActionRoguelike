@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "RogueProjectileMagic.generated.h"
 
+class UNiagaraSystem;
 class UNiagaraComponent;
 class UProjectileMovementComponent;
 class USphereComponent;

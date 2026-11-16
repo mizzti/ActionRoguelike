@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+struct FInputActionInstance;
 struct FInputActionValue;
 class UInputAction;
 class UCameraComponent;
@@ -38,6 +39,8 @@ protected:
 	virtual void BeginPlay() override;
 	
 	void Move(const FInputActionValue& InValue);
+	
+	void Look(const FInputActionInstance& InInstance);
 
 public:
 	// Called every frame

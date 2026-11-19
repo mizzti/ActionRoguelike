@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+class UAnimMontage;
 class ARogueProjectileMagic;
 struct FInputActionInstance;
 struct FInputActionValue;
@@ -28,6 +29,9 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, Category="PrimaryAttack")
 	FName MuzzleSocketName;
+	
+	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
+	TObjectPtr<UAnimMontage> AttackMontage;
 	
 	// 创建输入映射，用于BindAction
 	UPROPERTY(EditDefaultsOnly, Category="Input")
@@ -53,6 +57,8 @@ protected:
 	void Look(const FInputActionInstance& InInstance);
 
 	void PrimaryAttack();
+	
+	void AttackTimerElapsed();
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

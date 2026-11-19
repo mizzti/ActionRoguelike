@@ -29,7 +29,7 @@ void ARogueProjectileMagic::PostInitializeComponents()
 	Super::PostInitializeComponents();
 	
 	SphereComponent->OnComponentHit.AddDynamic(this, &ARogueProjectileMagic::OnActorHit);
-	
+	// @todo：instigator走到投掷物范围仍然会出发碰撞
 	SphereComponent->IgnoreActorWhenMoving(GetInstigator(), true);
 }
 

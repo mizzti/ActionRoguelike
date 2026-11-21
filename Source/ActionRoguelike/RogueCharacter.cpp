@@ -8,6 +8,8 @@
 #include "EnhancedInputComponent.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
+#include "NiagaraFunctionLibrary.h"
+#include "Kismet/GameplayStatics.h"
 #include "Projectiles/RogueProjectileMagic.h"
 
 
@@ -72,6 +74,11 @@ void ARogueCharacter::PrimaryAttack()
 	
 	const float AttackDelayTime = 0.2f;
 	
+	UNiagaraFunctionLibrary::SpawnSystemAttached(CastingEffect, GetMesh(), MuzzleSocketName,
+		FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::Type::SnapToTarget, true);	
+	
+	UGameplayStatics::PlaySound2D(this, CastingSound);
+	
 	GetWorldTimerManager().SetTimer(AttackTimerHandle, this, &ARogueCharacter::AttackTimerElapsed, AttackDelayTime);
 }
 
@@ -83,7 +90,8 @@ void ARogueCharacter::AttackTimerElapsed()
  	SpawnParams.Instigator = this;
  	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
  	
- 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
+ 	AActor* NewProjectile = GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
+	MoveIgnoreActorAdd(NewProjectile);
 }
 
 void ARogueCharacter::Tick(float DeltaTime)

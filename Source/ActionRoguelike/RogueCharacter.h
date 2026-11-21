@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+class UNiagaraSystem;
 class UAnimMontage;
 class ARogueProjectileMagic;
 struct FInputActionInstance;
@@ -32,6 +33,12 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
 	TObjectPtr<UAnimMontage> AttackMontage;
+	
+	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
+	TObjectPtr<UNiagaraSystem> CastingEffect;
+	
+	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
+	TObjectPtr<USoundBase> CastingSound;
 	
 	// 创建输入映射，用于BindAction
 	UPROPERTY(EditDefaultsOnly, Category="Input")
